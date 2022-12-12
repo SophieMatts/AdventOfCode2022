@@ -20,11 +20,7 @@ class Day3
       # it's lower case
       return letter.ord - 96
     end
-    # puts "A has ord value #{'A'.ord}, we want #{'A'.ord - 38}"
-    # puts "b has ord value #{'b'.ord}, we want #{'b'.ord - 96}"
-    # puts "c has ord value #{'c'.ord}, we want #{'c'.ord - 96}"
-    # puts "#{letter} has ord value #{letter.ord}, we want #{letter.ord - 96}"
-    # return 0
+
   end
 
 
@@ -44,13 +40,29 @@ class Day3
       score_for_repeating_letter = find_score_for_letter(repeating_letter)
       total_score += score_for_repeating_letter
     end
-
     return total_score
   end
 
+  def find_repeat_from_lines(line1, line2, line3)
+    line1.each do |l|
+      if line2.include?(l) && line3.include?(l)
+        return l
+      end
+    end
+  end
 
+  def part2
+    total_score = 0
+    sections = @lines.each_slice(3).to_a
 
+    sections.each do |section|
+      repeating_letter = find_repeat_from_lines(section[0].split(""), section[1].split(""), section[2].split(""))
 
+      score_for_repeating_letter = find_score_for_letter(repeating_letter)
+      total_score += score_for_repeating_letter
+    end
+    return total_score
+  end
 
 
 end
